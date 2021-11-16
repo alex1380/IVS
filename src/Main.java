@@ -2,24 +2,27 @@ import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
     static ArrayList<Double> write_in() {
-        ArrayList<Double> ar = new ArrayList<>();
+        ArrayList<Double> yList = new ArrayList<>();
         for (int a = 1; a <= 1000; a++) {
-            ar.add(Math.random());
+            yList.add(Math.random());
         }
-        return ar;
+        return yList;
     }
 
-    static ArrayList<Double> getting_x(ArrayList<Double> arg) {
-        ArrayList<Double> x = new ArrayList<>();
+    static ArrayList<Double> getting_x(ArrayList<Double> arg, Double a) {
+        ArrayList<Double> xList = new ArrayList<>();
         for (Double aDouble : arg) {
-            double tmp = Math.log(1 - aDouble);
-            x.add(Math.sqrt((-2) * tmp));
+            if (aDouble == 0.0)
+                xList.add(0.0);
+            else { double tmp = Math.log(1 - aDouble);
+            xList.add(Math.sqrt((-2) * a * tmp)); }
         }
-        return x;
+        return xList;
     }
 
 
@@ -27,8 +30,29 @@ public class Main {
 
     public static void main(String[] args) {
         DecimalFormat dF = new DecimalFormat("#.##########");
+        Scanner sc = new Scanner(System.in);
+        Double a = 0.0;
+        switch (sc.nextInt()){
+            case 1:
+                a = 0.5;
+                break;
+            case 2:
+                a = 1.0;
+                break;
+            case 3:
+                a = 2.0;
+                break;
+            case 4:
+                a = 3.0;
+                break;
+            case 5:
+                a = 4.0;
+                break;
+            default:
+                System.out.println("Введите значение от 1 до 5");
+        }
         ArrayList<Double> values_y = write_in();
-        ArrayList<Double> values_x = getting_x(values_y);
+        ArrayList<Double> values_x = getting_x(values_y, a);
         Collections.sort(values_x);
         for(Double num : values_x){
             System.out.println(dF.format(num));
